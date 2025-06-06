@@ -1,0 +1,9 @@
+GET http://localhost:3333/health
+
+###
+POST http://localhost:3333/orders
+Content-Type: application/json
+
+{
+  "amount": 5000
+}
