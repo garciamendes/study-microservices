@@ -1,3 +1,5 @@
+import "@opentelemetry/auto-instrumentations-node/register";
+
 import { fastify } from "fastify";
 import { fastifyCors } from "@fastify/cors";
 import {
@@ -41,6 +43,8 @@ app.post(
       customerId: "35ac14e6-3428-4b28-90a9-b0ce78ec30d3",
     };
 
+    await db.insert(schema.orders).values(data);
+
     dispatchOrderCreated({
       amount: data.amount,
       customer: {
@@ -48,8 +52,6 @@ app.post(
       },
       orderId: data.id,
     });
-
-    await db.insert(schema.orders).values(data);
     return reply.status(201).send();
   }
 );
